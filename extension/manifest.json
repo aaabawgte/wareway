@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "Wareway — Big Bang skladište",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Šalje naziv, ID i EAN artikla s Big Bang produktne stranice u Wareway skladište.",
   "permissions": [
     "activeTab",

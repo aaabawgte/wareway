@@ -11,7 +11,7 @@
 
 body {
   width: 390px;
-  min-height: 430px;
+  min-height: 220px;
   margin: 0;
   background:
     radial-gradient(circle at 100% 0, rgba(55, 102, 246, 0.12), transparent 42%),
@@ -22,7 +22,7 @@ button { font: inherit; }
 
 .shell {
   display: flex;
-  min-height: 430px;
+  min-height: 220px;
   flex-direction: column;
   gap: 16px;
   padding: 20px;
@@ -64,8 +64,7 @@ button { font: inherit; }
 
 .icon-button:hover { border-color: #9eabc0; color: #173b8f; }
 
-.state-card,
-.product-card {
+.state-card {
   border: 1px solid #e0e7ef;
   border-radius: 18px;
   background: rgba(255, 255, 255, 0.94);
@@ -74,7 +73,7 @@ button { font: inherit; }
 
 .state-card {
   display: flex;
-  min-height: 190px;
+  min-height: 74px;
   align-items: center;
   justify-content: center;
   gap: 10px;
@@ -92,34 +91,6 @@ button { font: inherit; }
 }
 
 @keyframes spin { to { transform: rotate(360deg); } }
-
-.product-card { padding: 20px; }
-.eyebrow { margin-bottom: 9px; color: #2c62ee; font-size: 10px; font-weight: 800; letter-spacing: .12em; }
-
-h1 {
-  display: -webkit-box;
-  margin: 0 0 19px;
-  overflow: hidden;
-  color: #142033;
-  font-size: 17px;
-  line-height: 1.38;
-  letter-spacing: -0.02em;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 3;
-}
-
-dl { display: grid; gap: 8px; margin: 0; }
-dl div {
-  display: grid;
-  grid-template-columns: 96px 1fr;
-  align-items: center;
-  padding: 10px 12px;
-  border-radius: 11px;
-  background: #f5f7fa;
-}
-
-dt { color: #6b798b; font-size: 11px; }
-dd { margin: 0; color: #192638; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 12px; font-weight: 700; }
 
 .message {
   padding: 10px 12px;

@@ -3,10 +3,6 @@
 
   const elements = {
     loading: document.querySelector("#loading"),
-    productCard: document.querySelector("#productCard"),
-    productName: document.querySelector("#productName"),
-    productId: document.querySelector("#productId"),
-    productBarcode: document.querySelector("#productBarcode"),
     message: document.querySelector("#message"),
     sendButton: document.querySelector("#sendButton"),
     settingsButton: document.querySelector("#settingsButton")
@@ -49,10 +45,6 @@
   function renderProduct(value) {
     product = value;
     elements.loading.hidden = true;
-    elements.productCard.hidden = false;
-    elements.productName.textContent = value.name;
-    elements.productId.textContent = value.bigbangId;
-    elements.productBarcode.textContent = value.barcode || "Nije pronađen";
   }
 
   async function initialize() {
