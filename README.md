@@ -8,6 +8,20 @@ Sustav ima tri dijela:
 - Cloudflare Worker API i D1 bazu u `worker/`
 - statički dashboard za GitHub Pages u `web/`
 
+## Produkcija
+
+- Dashboard: <https://aaabawgte.github.io/wareway/>
+- API: <https://wareway-api.aaabawgte.workers.dev>
+- Health: <https://wareway-api.aaabawgte.workers.dev/api/health>
+
+Čitanje povijesti i sve promjene traže produkcijski token. Na razvojnom Macu spremljen je u Keychainu pod servisom `wareway-api-token`. Za ručno kopiranje u postavke dashboarda ili ekstenzije:
+
+```bash
+security find-generic-password -a aaabawgte -s wareway-api-token -w
+```
+
+Vrijednost naredbe je tajna: ne stavljati je u Git, poruke ni `web/config.js`.
+
 ## Kako radi
 
 1. Korisnik otvori pojedini artikl na `bigbang.hr`.

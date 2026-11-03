@@ -4,9 +4,11 @@
   "main": "src/index.ts",
   "compatibility_date": "2026-11-03",
   "compatibility_flags": ["nodejs_compat"],
+  "workers_dev": true,
+  "preview_urls": false,
   "upload_source_maps": true,
   "vars": {
-    "ALLOWED_ORIGINS": "http://localhost:4173,http://127.0.0.1:4173,https://YOUR_GITHUB_USER.github.io",
+    "ALLOWED_ORIGINS": "http://localhost:4173,http://127.0.0.1:4173,https://aaabawgte.github.io",
     "REQUIRE_READ_AUTH": "true"
   },
   "secrets": {
@@ -16,7 +18,7 @@
     {
       "binding": "DB",
       "database_name": "wareway-db",
-      "database_id": "00000000-0000-0000-0000-000000000000",
+      "database_id": "4ecd5601-91a6-414e-babf-5317f3e5df18",
       "migrations_dir": "migrations"
     }
   ],
