@@ -1,0 +1,22 @@
+{
+  "name": "@wareway/worker",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "cf-typegen": "wrangler types --strict-vars false",
+    "typecheck": "npm run cf-typegen && tsc --noEmit",
+    "test": "vitest run",
+    "dev": "wrangler dev",
+    "migrate:local": "wrangler d1 migrations apply wareway-db --local",
+    "migrate:remote": "wrangler d1 migrations apply wareway-db --remote",
+    "deploy:check": "wrangler deploy --dry-run"
+  },
+  "devDependencies": {
+    "@cloudflare/vitest-plugin": "^1.5.1",
+    "@types/node": "^26.6.6",
+    "typescript": "^7.0.2",
+    "vitest": "^4.1.12",
+    "wrangler": "^4.157.0"
+  }
+}

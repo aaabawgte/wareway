@@ -1,0 +1,2 @@
+# Kopiraj ovu datoteku u .dev.vars i postavi vlastiti lokalni token.
+API_TOKEN="replace-with-at-least-16-random-characters"

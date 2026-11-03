@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="hr">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Wareway pregled artikala poslanih iz Big Bang Chrome ekstenzije.">
+    <title>Wareway — skladište</title>
+    <link rel="icon" href="favicon.svg" type="image/svg+xml">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <div class="page-grid" aria-hidden="true"></div>
+    <header class="topbar">
+      <a class="brand" href="./" aria-label="Wareway početna">
+        <span class="brand-mark">W</span>
+        <span>
+          <strong>Wareway</strong>
+          <small>INVENTORY INBOX</small>
+        </span>
+      </a>
+      <div class="topbar-actions">
+        <span id="connectionBadge" class="connection-badge"><i></i> Povezivanje</span>
+        <button id="settingsButton" class="secondary-button" type="button">Postavke API-ja</button>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div>
+          <p class="eyebrow">BIG BANG → SKLADIŠTE</p>
+          <h1>Sve poslano.<br><span>Na jednom mjestu.</span></h1>
+          <p class="hero-copy">Brzi pregled artikala, ID oznaka i barkodova koje je tim poslao iz Chrome ekstenzije.</p>
+        </div>
+        <div class="hero-signal" aria-hidden="true">
+          <span class="signal-line"></span>
+          <span class="signal-box">ID</span>
+          <span class="signal-arrow">→</span>
+          <span class="signal-box accent">EAN</span>
+        </div>
+      </section>
+
+      <section class="metrics" aria-label="Sažetak skladišta">
+        <article>
+          <span>Ukupno artikala</span>
+          <strong id="totalMetric">—</strong>
+        </article>
+        <article>
+          <span>Poslano danas</span>
+          <strong id="todayMetric">—</strong>
+        </article>
+        <article>
+          <span>Zadnje slanje</span>
+          <strong id="latestMetric" class="metric-date">—</strong>
+        </article>
+      </section>
+
+      <section class="inventory-panel">
+        <div class="panel-heading">
+          <div>
+            <p class="eyebrow">POVIJEST SLANJA</p>
+            <h2>Ulaz artikala</h2>
+          </div>
+          <button id="refreshButton" class="refresh-button" type="button" aria-label="Osvježi podatke">↻ <span>Osvježi</span></button>
+        </div>
+
+        <div class="toolbar">
+          <label class="search-field">
+            <span aria-hidden="true">⌕</span>
+            <span class="sr-only">Pretraži artikle</span>
+            <input id="searchInput" type="search" placeholder="Pretraži naziv, ID ili barkod…" autocomplete="off">
+          </label>
+          <label class="sort-field">
+            <span>Sortiraj</span>
+            <select id="sortSelect">
+              <option value="createdAt:desc">Najnovije prvo</option>
+              <option value="createdAt:asc">Najstarije prvo</option>
+              <option value="name:asc">Naziv A–Ž</option>
+              <option value="name:desc">Naziv Ž–A</option>
+              <option value="bigbangId:asc">ID uzlazno</option>
+            </select>
+          </label>
+        </div>
+
+        <div id="statusMessage" class="status-message" role="status" aria-live="polite">
+          <span class="spinner"></span> Učitavam artikle…
+        </div>
+
+        <div id="tableWrap" class="table-wrap" hidden>
+          <table>
+            <thead>
+              <tr>
+                <th>Artikl</th>
+                <th>Big Bang ID</th>
+                <th>EAN / barkod</th>
+                <th>Poslano</th>
+                <th><span class="sr-only">Radnje</span></th>
+              </tr>
+            </thead>
+            <tbody id="productRows"></tbody>
+          </table>
+        </div>
+
+        <div id="emptyState" class="empty-state" hidden>
+          <span class="empty-icon" aria-hidden="true">□</span>
+          <h3>Još nema poslanih artikala</h3>
+          <p>Otvori Big Bang artikl i pošalji ga kroz Wareway ekstenziju.</p>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <span>Wareway</span>
+      <span>Chrome ekstenzija · Cloudflare D1 · GitHub Pages</span>
+    </footer>
+
+    <dialog id="settingsDialog">
+      <form id="settingsForm" method="dialog">
+        <div class="dialog-heading">
+          <div>
+            <p class="eyebrow">POVEZIVANJE</p>
+            <h2>API postavke</h2>
+          </div>
+          <button class="close-button" value="cancel" aria-label="Zatvori">×</button>
+        </div>
+        <label>
+          <span>Cloudflare Worker URL</span>
+          <input id="apiBaseUrl" type="url" placeholder="https://wareway-api.example.workers.dev" required>
+        </label>
+        <label>
+          <span>Pristupni token <small>(potreban samo za privatno čitanje i brisanje)</small></span>
+          <input id="apiToken" type="password" autocomplete="off" placeholder="Nije spremljen u repozitorij">
+        </label>
+        <p class="dialog-note">Postavke se spremaju samo u ovom pregledniku.</p>
+        <div class="dialog-actions">
+          <button class="secondary-button" value="cancel">Odustani</button>
+          <button class="primary-button" type="submit" value="default">Spremi i poveži</button>
+        </div>
+      </form>
+    </dialog>
+
+    <template id="productRowTemplate">
+      <tr>
+        <td data-label="Artikl">
+          <div class="product-name"></div>
+          <a class="source-link" target="_blank" rel="noopener noreferrer">Otvori na Big Bangu ↗</a>
+        </td>
+        <td data-label="Big Bang ID"><code class="product-id"></code></td>
+        <td data-label="EAN / barkod"><code class="product-barcode"></code></td>
+        <td data-label="Poslano"><time class="product-date"></time></td>
+        <td class="row-actions"><button class="delete-button" type="button" title="Obriši zapis" aria-label="Obriši zapis">×</button></td>
+      </tr>
+    </template>
+
+    <script src="config.js"></script>
+    <script src="app.js"></script>
+  </body>
+</html>
+

@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="hr">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Wareway postavke</title>
+    <link rel="stylesheet" href="options.css">
+  </head>
+  <body>
+    <main class="settings-card">
+      <div class="brand-mark" aria-hidden="true">W</div>
+      <p class="eyebrow">WAREWAY EKSTENZIJA</p>
+      <h1>Poveži skladište</h1>
+      <p class="intro">Unesi adresu Cloudflare Workera i isti token koji je spremljen kao Worker secret <code>API_TOKEN</code>.</p>
+
+      <form id="settingsForm">
+        <label for="apiBaseUrl">API adresa</label>
+        <input id="apiBaseUrl" name="apiBaseUrl" type="url" placeholder="https://wareway-api.example.workers.dev" required>
+
+        <label for="apiToken">Pristupni token</label>
+        <input id="apiToken" name="apiToken" type="password" autocomplete="off" placeholder="Unesi sigurni token" required>
+
+        <p class="security-note">Token se sprema samo u lokalnu pohranu ovog preglednika. Ne zapisuje se u GitHub repozitorij.</p>
+        <div id="status" class="status" role="status" aria-live="polite" hidden></div>
+        <button type="submit">Spremi postavke</button>
+      </form>
+    </main>
+    <script src="options.js"></script>
+  </body>
+</html>
+

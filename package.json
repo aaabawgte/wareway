@@ -1,0 +1,15 @@
+{
+  "name": "wareway",
+  "version": "0.1.0",
+  "private": true,
+  "workspaces": [
+    "worker"
+  ],
+  "scripts": {
+    "check": "npm run typecheck --workspace worker && npm test",
+    "test": "npm run test --workspace worker && node --test extension/tests/*.test.js",
+    "dev:api": "npm run dev --workspace worker",
+    "migrate:local": "npm run migrate:local --workspace worker"
+  }
+}
+

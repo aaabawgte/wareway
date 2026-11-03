@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="hr">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Wareway</title>
+    <link rel="stylesheet" href="popup.css">
+  </head>
+  <body>
+    <main class="shell">
+      <header class="brand">
+        <span class="brand-mark" aria-hidden="true">W</span>
+        <span>
+          <strong>Wareway</strong>
+          <small>Big Bang → skladište</small>
+        </span>
+        <button id="settingsButton" class="icon-button" type="button" title="Postavke" aria-label="Otvori postavke">⚙</button>
+      </header>
+
+      <section id="loading" class="state-card">
+        <span class="spinner" aria-hidden="true"></span>
+        <span>Čitam podatke artikla…</span>
+      </section>
+
+      <section id="productCard" class="product-card" hidden>
+        <div class="eyebrow">SPREMNO ZA SLANJE</div>
+        <h1 id="productName"></h1>
+        <dl>
+          <div>
+            <dt>ID artikla</dt>
+            <dd id="productId"></dd>
+          </div>
+          <div>
+            <dt>EAN / barkod</dt>
+            <dd id="productBarcode"></dd>
+          </div>
+        </dl>
+      </section>
+
+      <div id="message" class="message" role="status" aria-live="polite" hidden></div>
+
+      <button id="sendButton" class="primary-button" type="button" disabled>
+        <span>Pošalji u skladište</span>
+        <span aria-hidden="true">→</span>
+      </button>
+    </main>
+    <script src="popup.js"></script>
+  </body>
+</html>
+

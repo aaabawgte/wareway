@@ -1,0 +1,41 @@
+{
+  "manifest_version": 3,
+  "name": "Wareway — Big Bang skladište",
+  "version": "0.1.0",
+  "description": "Šalje naziv, ID i EAN artikla s Big Bang produktne stranice u Wareway skladište.",
+  "permissions": [
+    "activeTab",
+    "storage"
+  ],
+  "host_permissions": [
+    "https://www.bigbang.hr/*",
+    "https://bigbang.hr/*",
+    "https://*.workers.dev/*",
+    "http://localhost:8787/*",
+    "http://127.0.0.1:8787/*"
+  ],
+  "optional_host_permissions": [
+    "https://*/*",
+    "http://localhost/*",
+    "http://127.0.0.1/*"
+  ],
+  "action": {
+    "default_title": "Pošalji u skladište",
+    "default_popup": "popup.html"
+  },
+  "options_page": "options.html",
+  "content_scripts": [
+    {
+      "matches": [
+        "https://www.bigbang.hr/*",
+        "https://bigbang.hr/*"
+      ],
+      "js": [
+        "lib/extractor.js",
+        "content.js"
+      ],
+      "run_at": "document_idle"
+    }
+  ]
+}
+
