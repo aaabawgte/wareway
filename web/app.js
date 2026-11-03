@@ -13,7 +13,8 @@
       || window.WAREWAY_CONFIG?.apiBaseUrl
       || "",
     apiToken: localStorage.getItem(storageKeys.apiToken) || "",
-    searchTimer: null
+    searchTimer: null,
+    loading: false
   };
 
   const elements = {
@@ -127,13 +128,16 @@
     }
   }
 
-  async function loadProducts() {
+  async function loadProducts({ silent = false } = {}) {
+    if (state.loading) return;
+
     if (!apiConfigured()) {
       showError("Upiši adresu Cloudflare Workera u postavkama API-ja.");
       return;
     }
 
-    showLoading();
+    state.loading = true;
+    if (!silent) showLoading();
     const [sort, order] = elements.sortSelect.value.split(":");
     const params = new URLSearchParams({
       limit: "200",
@@ -152,7 +156,14 @@
       elements.connectionBadge.innerHTML = "<i></i> Povezano";
       renderRows();
     } catch (error) {
-      showError(error instanceof Error ? error.message : "Podatke nije moguće učitati.");
+      if (silent && state.products.length) {
+        elements.connectionBadge.className = "connection-badge offline";
+        elements.connectionBadge.innerHTML = "<i></i> Veza prekinuta";
+      } else {
+        showError(error instanceof Error ? error.message : "Podatke nije moguće učitati.");
+      }
+    } finally {
+      state.loading = false;
     }
   }
 
@@ -183,8 +194,8 @@
   }
 
   elements.settingsButton.addEventListener("click", openSettings);
-  elements.refreshButton.addEventListener("click", loadProducts);
-  elements.sortSelect.addEventListener("change", loadProducts);
+  elements.refreshButton.addEventListener("click", () => loadProducts());
+  elements.sortSelect.addEventListener("change", () => loadProducts());
   elements.searchInput.addEventListener("input", () => {
     window.clearTimeout(state.searchTimer);
     state.searchTimer = window.setTimeout(loadProducts, 280);
@@ -210,6 +221,14 @@
       elements.apiBaseUrl.reportValidity();
       window.setTimeout(() => elements.apiBaseUrl.setCustomValidity(""), 0);
     }
+  });
+
+  window.setInterval(() => {
+    if (document.visibilityState === "visible") loadProducts({ silent: true });
+  }, 10_000);
+
+  document.addEventListener("visibilitychange", () => {
+    if (document.visibilityState === "visible") loadProducts({ silent: true });
   });
 
   loadProducts();
